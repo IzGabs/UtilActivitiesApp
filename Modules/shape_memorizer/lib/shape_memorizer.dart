@@ -1,3 +1,3 @@
 library shape_memorizer;
 
-export 'main.dart';
+export 'view/home/main.dart';
