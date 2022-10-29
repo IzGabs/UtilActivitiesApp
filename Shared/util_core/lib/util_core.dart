@@ -1,21 +1,16 @@
 import 'main.dart';
-import 'routes/navigation_router.dart';
 
 abstract class ICore {
-  final INavigationRouter navigation;
-
-  ICore({required this.navigation});
+  late final INavigationRouter navigation;
 
   Future<void> init();
 }
 
 class UtilCore implements ICore {
-  @override
-  final INavigationRouter navigation;
+  UtilCore({required this.navigation});
 
-  UtilCore({
-    this.navigation = const NavigationRouter(),
-  });
+  @override
+  late final INavigationRouter navigation;
 
   @override
   Future<void> init() async {

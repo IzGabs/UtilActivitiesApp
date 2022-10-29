@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-typedef WidgetBuilderArgs = Widget Function(BuildContext context, Object args);
+typedef WidgetBuilderArgs = Widget Function(BuildContext context, Object? args);
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 abstract class IBaseModuleNavigation {
-  final Map<String, WidgetBuilderArgs> routes = {};
-  Map<String, WidgetBuilderArgs> get baseRoutes;
+  final String modulePrefix;
+  Map<String, WidgetBuilderArgs> moduleRoutes = {};
 
-  void registerRoutes();
+  IBaseModuleNavigation(this.modulePrefix);
 }

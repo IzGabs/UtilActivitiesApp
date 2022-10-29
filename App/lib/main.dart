@@ -5,7 +5,9 @@ import 'presenter/home/home_page.dart';
 import 'presenter/themes/dark/dark_theme.dart';
 import 'presenter/themes/light/light_theme.dart';
 
-final ICore core = UtilCore();
+final ICore core = UtilCore(
+  navigation: defaultRouter,
+);
 
 Future<void> main() async {
   await core.init();
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
       darkTheme: DarkTheme().getTheme(),
       theme: LightTheme().getTheme(),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      onGenerateRoute: (settings) => core.navigation.generateRoute(settings),
     );
   }
 }
