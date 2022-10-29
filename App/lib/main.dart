@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:util_core/main.dart';
 
 import 'presenter/home/home_page.dart';
 import 'presenter/themes/dark/dark_theme.dart';
 import 'presenter/themes/light/light_theme.dart';
 
-void main() {
+final ICore core = UtilCore();
+
+Future<void> main() async {
+  await core.init();
+
   runApp(const MyApp());
 }
 

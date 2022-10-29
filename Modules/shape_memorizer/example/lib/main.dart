@@ -10,21 +10,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: ShapeMemo(),
-      theme: ThemeData(
-        elevatedButtonTheme: const ElevatedButtonThemeData(
-          style: ButtonStyle(
-            textStyle: MaterialStatePropertyAll(
-              TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 25,
-              ),
+    final theme = ThemeData(
+      elevatedButtonTheme: const ElevatedButtonThemeData(
+        style: ButtonStyle(
+          textStyle: MaterialStatePropertyAll(
+            TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 25,
             ),
           ),
         ),
       ),
+    );
+
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: ShapeMemo(currentTheme: theme),
+      theme: theme,
     );
   }
 }
