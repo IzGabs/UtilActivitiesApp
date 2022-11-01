@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:util_core/main.dart';
-import 'package:util_core/routes/navigation_extensions.dart';
+import 'package:util_core/routes/extensions/navigation_extensions.dart';
 
 class MockModuleNav extends Mock implements IModuleRoutes {
   @override

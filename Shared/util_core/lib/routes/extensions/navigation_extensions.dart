@@ -1,4 +1,4 @@
-import 'interfaces/module_routes_interface.dart';
+import '../interfaces/module_routes_interface.dart';
 
 extension FormatPrefix on IModuleRoutes {
   void formatRoutesPrefix() {
