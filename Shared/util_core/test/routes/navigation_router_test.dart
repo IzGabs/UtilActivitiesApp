@@ -1,46 +1,64 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:util_core/main.dart';
 import 'package:util_core/routes/navigation_extensions.dart';
 
-class MockModuleNav extends Mock implements IBaseModuleNavigation {
+class MockModuleNav extends Mock implements IModuleRoutes {
   @override
-  String get moduleSufix => 'Test';
+  String get modulePrefix => 'Test';
 
   @override
-  Map<String, WidgetBuilderArgs> moduleRoutes = {
-    'homeExample': (context, args) => throw UnimplementedError(),
+  IRoutesMap routes = {
+    'Home': (context, args) => throw UnimplementedError(),
+    'Login': (context, args) => throw UnimplementedError(),
   };
 }
 
 void main() {
   final mockModuleNav = MockModuleNav();
-  final routerimpl = NavigationRouter([mockModuleNav]);
+  final routerimpl = NavigationRouter();
+
   test(
     'Must add prefix to routes',
     () {
-      //Do
+      //Act
       mockModuleNav.formatRoutesPrefix();
 
-      //Test
-      expect(mockModuleNav.moduleRoutes.keys.first, 'Test/homeExample',
-          reason:
-              'Should format all prefixes to ensure unique keys over the app');
+      //Assert
+      expect(
+        mockModuleNav.routes.keys.first,
+        'Test/Home',
+        reason: 'Should format all prefixes to ensure unique keys over the app',
+      );
     },
   );
 
-  test(
-    'Must add all routes from all apps',
-    () {
-      mockModuleNav.moduleRoutes.addAll({
-        'test2': (context, args) => throw UnimplementedError(),
-      });
+  group('Test registerNavigation', () {
+    setUp(() {
+      mockModuleNav.routes.addAll(
+        {'test2': (context, args) => throw UnimplementedError()},
+      );
+      routerimpl.regModulesRoutes({mockModuleNav});
+    });
 
-      //Do
-      routerimpl.registerNavigation();
+    test('Must add all routes from all apps', () {
+      expect(routerimpl.appRoutes.length, 3);
+    });
+  });
 
-      //Test
-      expect(routerimpl.appRoutes.length, 2);
-    },
-  );
+  group('Test generateRoute', () {
+    setUp(() => routerimpl.regModulesRoutes({mockModuleNav}));
+    test('Must generate routes given the name', () {
+      // Arrange
+      const settings = RouteSettings(name: 'Test/Home');
+
+      // Act
+      final route = routerimpl.generateRoute(settings);
+
+      // Assert
+      expect(route, isNotNull);
+      expect(route, isA<MaterialPageRoute>());
+    });
+  });
 }

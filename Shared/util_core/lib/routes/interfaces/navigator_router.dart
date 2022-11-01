@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'base_modules_navigation.dart';
+import 'module_routes_interface.dart';
 
 abstract class INavigationRouter {
-  INavigationRouter(this.modules);
+  final IRoutesMap appRoutes = {};
 
-  final Map<String, WidgetBuilderArgs> appRoutes = {};
-  final List<IBaseModuleNavigation> modules;
-
-  void registerNavigation();
+  void regModulesRoutes(Set<IModuleRoutes> modulesRoutes);
   Route<dynamic>? generateRoute(RouteSettings settings);
 }
