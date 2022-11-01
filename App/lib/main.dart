@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shape_memorizer/controller/core/core_config.dart';
 import 'package:util_core/main.dart';
 
 import 'presenter/home/home_page.dart';
 import 'presenter/themes/dark/dark_theme.dart';
 import 'presenter/themes/light/light_theme.dart';
 
-final ICore core = UtilCore(
-  navigation: defaultRouter,
+final core = UtilCore(
+  navigation: NavigationRouter(),
+  modules: {
+    ModuleShape(),
+  },
 );
 
 Future<void> main() async {

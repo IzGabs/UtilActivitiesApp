@@ -1,9 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:util_core/main.dart';
 
-class SMNavigation implements IBaseModuleNavigation {
+class SMNavigation implements IModuleRoutes {
   @override
   String get modulePrefix => 'shapeMemorizer';
 
   @override
-  Map<String, WidgetBuilderArgs> moduleRoutes = {};
+  IRoutesMap routes = {
+    'Home': (context, args) => Container(),
+    'Login': (context, args) => Container(),
+  };
 }

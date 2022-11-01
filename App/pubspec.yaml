@@ -12,9 +12,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
   util_core:
     path: "../Shared/util_core/"
+  shape_memorizer:
+    path: "../Modules/shape_memorizer/"
+
+  ## outsiders
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
