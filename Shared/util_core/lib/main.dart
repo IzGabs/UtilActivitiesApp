@@ -1,26 +1,17 @@
 library util_core;
 
-import 'main.dart';
-import 'modules_cfg.dart';
+import 'package:util_core/routes/type_defs.dart';
 
-export 'routes/interfaces/module_routes_interface.dart';
-export 'routes/interfaces/navigator_router.dart';
-export 'routes/navigation_router.dart';
+import 'modules_config.dart';
 
-abstract class CoreAbs {
-  final INavigationRouter navigation;
-  final Set<IModuleConfig> modules;
+abstract class CoreConfiguration {
+  late final Set<IModuleConfig> modules;
 
-  CoreAbs({
-    required this.navigation,
+  CoreConfiguration({
     this.modules = const {},
   });
 
-  Future<void> init() async {
-    navigation.regModulesRoutes(modules.absorbRoutes());
-  }
-}
+  Future<void> init() async {}
 
-class UtilCore extends CoreAbs {
-  UtilCore({required super.navigation, super.modules});
+  RoutesConfig getRouterConfig();
 }

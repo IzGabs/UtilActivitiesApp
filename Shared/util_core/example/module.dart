@@ -1,42 +1,52 @@
 import 'package:flutter/material.dart';
+
 import 'package:util_core/main.dart';
-import 'package:util_core/modules_cfg.dart';
+import 'package:util_core/modules_config.dart';
+import 'package:util_core/routes/controllers/routes_controller.dart';
+import 'package:util_core/routes/feature_routes.dart';
+import 'package:util_core/routes/models/route_model.dart';
+import 'package:util_core/routes/type_defs.dart';
 
-/// Create your core
-class TestCore extends CoreAbs {
-  TestCore({required super.navigation, super.modules});
+/// Every Module has this configuration
+class ModuleExampleConfig implements IModuleConfig {
+  @override
+  RoutesController routesController;
+
+  ModuleExampleConfig(this.routesController);
 }
 
-/// Modules base
-class ModuleExample implements IModuleConfig {
+class ModuleExampleRoutes implements RoutesModel {
   @override
-  IModuleRoutes routes = ModuleExampleRoutes();
+  GlobalKey<NavigatorState>? baseNavigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  List<IFeatureRoutes> routesByFeature = [
+    Feature1Routes(),
+  ];
 }
 
-/// Modules base Routing System
-class ModuleExampleRoutes implements IModuleRoutes {
+class Feature1Routes implements IFeatureRoutes {
   @override
-  String get modulePrefix => '/ModuleExample';
-
-  @override
-  IRoutesMap routes = {
-    'Home': (context, args) => Container(),
-    'Login': (context, args) => Container(),
-  };
+  List<BaseRoutes> get routeBase => [/* Feature Routess */];
 }
 
-/// Instantiate our Module
-final moduleExample = ModuleExample();
+/// --> And then in your core you do this:
+// Create your core
+class TestCore extends CoreConfiguration {
+  @override
+  RouterConfig<Object> getRouterConfig() {
+    final modulesRoutes = modules
+        .map<BaseRoutes>((element) => element.routesController.getRootRouter())
+        .toList();
 
-/// Apply it to our Core with the respective navigationRouter
-final core = TestCore(
-  navigation: NavigationRouter(),
-  modules: {
-    moduleExample,
-  },
-);
+    return PackageRouter(routes: modulesRoutes);
+  }
+}
 
-/// READY TO USE
-void main() {
-  core.init();
+final core = TestCore();
+
+Widget buildContext(BuildContext context) {
+  return MaterialApp.router(
+    routerConfig: core.getRouterConfig(),
+  );
 }
